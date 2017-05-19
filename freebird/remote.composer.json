@@ -24,7 +24,7 @@
         "drupal/console": "~1.0",
         "drupal/core": "~8.3",
         "drush/drush": "~8.0",
-        "highwire/freebird": "dev-master",
+        "highwire/freebird": "dev-8.x-1.x-dev",
         "oomphinc/composer-installers-extender": "^1.1",
         "webflo/drupal-finder": "^0.3.0",
         "webmozart/path-util": "^2.3"
