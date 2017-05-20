@@ -34,25 +34,6 @@
             "scripts/composer/ScriptHandler.php"
         ]
     },
-    "scripts": {
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "create-project-symlinks": "DrupalProject\\composer\\ScriptHandler::createProjectSymlinks",
-        "pre-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "pre-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles", 
-            "DrupalProject\\composer\\ScriptHandler::createProjectSymlinks",
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ],
-        "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\ScriptHandler::createProjectSymlinks"
-        ]
-    },
     "extra": {
         "installer-types": ["project"],
         "installer-paths": {
