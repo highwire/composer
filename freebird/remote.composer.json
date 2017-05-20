@@ -31,7 +31,15 @@
     },
     "autoload": {
         "classmap": [
-            "scripts/composer/ScriptHandler.php"
+            "scripts/composer/SiteScriptHandler.php"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks"
         ]
     },
     "extra": {
