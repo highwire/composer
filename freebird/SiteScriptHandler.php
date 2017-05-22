@@ -20,9 +20,7 @@ class SiteScriptHandler {
    */
   public static function createSiteSymlinks(Event $event) {
     $fs = new Filesystem();
-    $drupalFinder = new DrupalFinder();
-    $drupalFinder->locateRoot(getcwd());
-    $drupalRoot = $drupalFinder->getDrupalRoot();
+    $drupalRoot = getcwd() . '/web';
     $dirs = [
       'modules' => 'modules',
       'profiles' => 'profiles',
@@ -36,8 +34,10 @@ class SiteScriptHandler {
         $contents = scandir($dir);
         foreach ($contents as $content) {
           if ($content != '.' && $content != '..') {
-            $link = $drupalRoot . '/' . $dir . '/' . $content;
-            $target = $fs->makePathRelative($link, 'web/' . $type . '/' . $content);
+            $linkdir = $drupalRoot . '/' . $type;
+            $link = $linkdir . '/' . $content;
+            $target = getcwd() . '/' . $dir . '/' . $content;
+            $target = $fs->makePathRelative($target, $linkdir);
             if (!$fs->exists($link)) {
               $fs->symlink($target, $link, true);
               $event->getIO()->write("Create a symlink from $link to $target");
