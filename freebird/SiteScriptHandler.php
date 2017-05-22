@@ -37,6 +37,9 @@ class SiteScriptHandler {
             $linkdir = $drupalRoot . '/' . $type;
             $link = $linkdir . '/' . $content;
             $target = getcwd() . '/' . $dir . '/' . $content;
+            if (!is_dir($target)) {
+              continue;
+            }
             $target = $fs->makePathRelative($target, $linkdir);
             if (!$fs->exists($link)) {
               $fs->symlink($target, $link, true);
