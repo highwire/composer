@@ -37,7 +37,7 @@ class SiteScriptHandler {
         foreach ($contents as $content) {
           if ($content != '.' && $content != '..') {
             $link = $drupalRoot . '/' . $dir . '/' . $content;
-            $target = $fs->makePathRelative('web/' . $type . '/' . $content);
+            $target = $fs->makePathRelative($link, 'web/' . $type . '/' . $content);
             if (!$fs->exists($link)) {
               $fs->symlink($target, $link, true);
               $event->getIO()->write("Create a symlink from $link to $target");
