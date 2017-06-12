@@ -35,10 +35,16 @@
         ]
     },
     "scripts": {
+        "required-files": "DrupalProject\\composer\\ScriptHandler::createSiteSymlinks",
+        "site-symlinks": "DrupalProject\\composer\\ScriptHandler::createSiteSymlinks",
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "post-install-cmd": [
-            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks", 
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ],
         "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles", 
             "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks"
         ]
     },
