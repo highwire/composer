@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DrupalProject\composer\SiteScriptHandler.
+ * Contains \HighWireSite\composer\SiteScriptHandler.
  */
 
-namespace DrupalProject\composer;
+namespace HighWireSite\composer;
 
 use Composer\Script\Event;
 use Composer\Semver\Comparator;
@@ -20,7 +20,9 @@ class SiteScriptHandler {
    */
   public static function createSiteSymlinks(Event $event) {
     $fs = new Filesystem();
-    $drupalRoot = getcwd() . '/web';
+    $composerRoot = getcwd();
+    $drupalRoot = $composerRoot . '/web';
+
     $dirs = [
       'modules' => 'modules',
       'profiles' => 'profiles',
@@ -36,7 +38,7 @@ class SiteScriptHandler {
           if ($content != '.' && $content != '..') {
             $linkdir = $drupalRoot . '/' . $type;
             $link = $linkdir . '/' . $content;
-            $target = getcwd() . '/' . $dir . '/' . $content;
+            $target = $composerRoot . '/' . $dir . '/' . $content;
             if (!is_dir($target)) {
               continue;
             }
@@ -56,15 +58,15 @@ class SiteScriptHandler {
    */
   public static function createRequiredFiles(Event $event) {
     $fs = new Filesystem();
-    $drupalFinder = new DrupalFinder();
-    $drupalFinder->locateRoot(getcwd());
-    $drupalRoot = $drupalFinder->getDrupalRoot();
+    $composerRoot = getcwd();
+    $drupalRoot = $composerRoot . '/web';
 
     $dirs = [
       'modules',
       'profiles',
       'themes',
     ];
+
 
     // Required for unit testing
     foreach ($dirs as $dir) {
@@ -81,7 +83,7 @@ class SiteScriptHandler {
       require_once $drupalRoot . '/core/includes/install.inc';
       $settings['config_directories'] = [
         CONFIG_SYNC_DIRECTORY => (object) [
-          'value' => Path::makeRelative($drupalFinder->getComposerRoot() . '/config/sync', $drupalRoot),
+          'value' => Path::makeRelative($composerRoot . '/config/sync', $drupalRoot),
           'required' => TRUE,
         ],
       ];
