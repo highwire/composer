@@ -49,7 +49,6 @@
         ]
     },
     "extra": {
-        "installer-types": ["project"],
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
