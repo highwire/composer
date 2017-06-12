@@ -1,22 +1,22 @@
 {
-     "repositories": [
+    "repositories": [
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
         {
             "type": "git",
-            "url":  "git@github.com:highwire/hwphp.git"
+            "url": "git@github.com:highwire/hwphp.git"
         },
         {
             "type": "git",
-            "url":  "git@github.com:highwire/freebird.git"
+            "url": "git@github.com:highwire/freebird.git"
         },
         {
             "type": "git",
-            "url":  "git@github.com:phayes/elasticentityquery.git"
+            "url": "git@github.com:phayes/elasticentityquery.git"
         }
-    ], 
+    ],
     "require": {
         "highwire/freebird": "dev-8.x-1.x-dev",
         "oomphinc/composer-installers-extender": "^1.1"
@@ -27,7 +27,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-      "sort-packages": true
+        "sort-packages": true
     },
     "autoload": {
         "classmap": [
@@ -35,27 +35,42 @@
         ]
     },
     "scripts": {
-        "required-files": "DrupalProject\\composer\\ScriptHandler::createSiteSymlinks",
-        "site-symlinks": "DrupalProject\\composer\\ScriptHandler::createSiteSymlinks",
+        "required-files": "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
+        "site-symlinks": "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks", 
+            "HighWireSite\\composer\\SiteScriptHandler::createRequiredFiles",
+            "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles", 
-            "DrupalProject\\composer\\SiteScriptHandler::createSiteSymlinks"
+            "HighWireSite\\composer\\SiteScriptHandler::createRequiredFiles",
+            "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks"
         ]
     },
     "extra": {
+        "installer-types": [
+            "project"
+        ],
         "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/contrib/{$name}": [
+                "type:drupal-drush"
+            ]
         }
     }
 }
