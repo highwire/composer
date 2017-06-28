@@ -23,7 +23,8 @@
         <% else %>
         "highwire/freebird": "dev-8.x-1.x-dev",
         <% end %>
-        "oomphinc/composer-installers-extender": "^1.1"
+        "oomphinc/composer-installers-extender": "^1.1", 
+        "cweagans/composer-patches": "^1.5.0"
     },
     "require-dev": {
         "behat/behat": "^3.3",
@@ -60,6 +61,7 @@
         ]
     },
     "extra": {
+        "enable-patching": true,
         "installer-types": [
             "project"
         ],
