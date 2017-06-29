@@ -14,13 +14,50 @@ use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\PathUtil\Path;
 
 class SiteScriptHandler {
+
+  /**
+   * Build Themes
+   */
+  public static function buildThemes(Event $event) {
+    $fs = new Filesystem();
+    $composerRoot = dirname($event->getComposer()->getConfig()->get('vendor-dir'));
+
+    $dirs = [
+      'themes' => 'themes',
+      'vendor/highwire/freebird/themes' => 'themes',
+    ];
+    foreach ($dirs as $dir => $type) {
+      if ($fs->exists($dir)) {
+        $themedirs = scandir($dir);
+        foreach ($themedirs as $themedir) {
+          if ($themedir != '.' && $themedir != '..') {
+            $fullthemedir = $composerRoot . '/' . $dir . '/' . $themedir;
+            if (file_exists($fullthemedir . '/yarn.lock')) {
+              $olddir = getcwd();
+              chdir($fullthemedir);
+              $return = 0;
+              passthru("yarn install --non-interactive --no-progress --no-emoji", $return);
+              if ($return != 0) {
+                throw new \Exception("Yarn failed to install theme $themedir");
+              }
+              passthru("npm run compile", $return);
+              if ($return != 0) {
+                throw new \Exception("npm run compile failed on theme $themedir");
+              }
+              chdir($olddir);
+            }
+          }
+        }
+      }
+    }
+  }
   
   /**
    * Link freebird modules, themes, and profiles
    */
   public static function createSiteSymlinks(Event $event) {
     $fs = new Filesystem();
-    $composerRoot = getcwd();
+    $composerRoot = dirname($event->getComposer()->getConfig()->get('vendor-dir'));
     $drupalRoot = $composerRoot . '/web';
 
     $dirs = [
@@ -58,7 +95,7 @@ class SiteScriptHandler {
    */
   public static function createRequiredFiles(Event $event) {
     $fs = new Filesystem();
-    $composerRoot = getcwd();
+    $composerRoot = dirname($event->getComposer()->getConfig()->get('vendor-dir'));
     $drupalRoot = $composerRoot . '/web';
 
     $dirs = [
@@ -66,7 +103,6 @@ class SiteScriptHandler {
       'profiles',
       'themes',
     ];
-
 
     // Required for unit testing
     foreach ($dirs as $dir) {
