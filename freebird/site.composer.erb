@@ -50,7 +50,9 @@
         "required-files": "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
         "site-symlinks": "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "build-themes": "DrupalComposer\\DrupalScaffold\\Plugin::buildThemes",
         "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::buildThemes",
             "HighWireSite\\composer\\SiteScriptHandler::createRequiredFiles",
             "HighWireSite\\composer\\SiteScriptHandler::createSiteSymlinks",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
