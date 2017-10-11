@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "highwire/freebird": "dev-8.x-1.x-dev",
+        "highwire/freebird": "dev-8.x-1.x-stable",
         "oomphinc/composer-installers-extender": "^1.1", 
         "cweagans/composer-patches": "^1.5.0"
     },
